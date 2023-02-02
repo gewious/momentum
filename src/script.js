@@ -33,23 +33,24 @@ const greetWord = ['morning', 'afternoon', 'evening', 'night']
 
 function getTimeOfDay() {
     let position = hours / 6;
-    if (position < 6) {
+    if (position < 1) {
         return 'night'
     }
-    if (12 > position > 6) {
+    if (position >= 1 && position < 2) {
         return 'morning'
     }
-    if (18 > position > 12) {
-        return 'evening'
-    }
-    if (24 > position > 18) {
+    if (position >= 2 && position < 3) {
         return 'afternoon'
+    }
+    if (position >= 3) {
+        return 'evening'
     }
 }
 
 const timeOfDay = getTimeOfDay();
 const greetingText = `Good ${timeOfDay}`;
 greet.textContent = greetingText;
+
 
 const name = document.querySelector('.name');
 
