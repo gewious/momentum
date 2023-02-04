@@ -1,0 +1,112 @@
+{
+"morning": [
+    {
+      "text": "Seems you left your brave pants at home. Want me to wait while you go get them?",
+      "author": "Poppy"
+    },
+    {
+      "text": "The dawn has arrived.",
+      "author": "Leona"
+    },
+      {
+      "text": "Rules are made to be broken... like buildings! Or people!",
+      "author": "Jinx"
+    },
+    {
+      "text": "Live today like you’re going to die tomorrow.",
+      "author": "Irelia"
+    },
+    {
+      "text": "Loading. Recommend program: Enjoy Selves!",
+      "author": "Blitzcrank"
+    },
+    {
+      "text": "Losing is just an opportunity to shine even brighter.",
+      "author": "Lux"
+    }
+  ],  
+
+  "afternoon" : [
+    {
+      "text": "Spend enough time in the darkness and you'll see monsters everywhere.",
+      "author": "Vayne"
+    },
+    {
+        "text": "Guns don't kill people. I mean, until you shoot them. Then they kill everything!",
+        "author": "Jinx"
+      },
+      {
+        "text": "Peace is not perennial. It must be constantly sowed.",
+        "author": "Irelia"
+      },
+      {
+        "text": "I'll show these house cats real claws.",
+        "author": "Nidalee"
+      },
+      {
+        "text": "Every adventure is better with a friend!",
+        "author": "Nunu & Willump"
+      },
+      {
+        "text": "So many noobs, will matchmaking ever find true balance?",
+        "author": "Akali"
+      }
+  ],
+
+
+  "evening" : [
+    {
+      "text": "If Neeko can be everyone, how can Neeko be sure she's anyone?",
+      "author": "Neeko"
+    },
+    {
+        "text": "I don't ask for much. Just everything.",
+        "author": "LeBlanc"
+      },
+      {
+        "text": "I really need a new gun. But don't tell my other guns.",
+        "author": "Jinx"
+      },
+      {
+        "text": "Violence solves everything!",
+        "author": "Katarina"
+      },
+      {
+        "text": "Size doesn't mean everything.",
+        "author": "Teemo"
+      },
+      {
+        "text": "It's alright if you don't like me. We can't all have good taste.",
+        "author": "Samira"
+      }
+  ],
+
+  "night" : [
+    {
+      "text": "Fear the assassin with no master.",
+      "author": "Akali"
+    },
+    {
+        "text": "You wanna play too? It'll be fun!",
+        "author": "Annie"
+      },
+      {
+        "text": "I know this place... Some part of me remembers.",
+        "author": "Ahri"
+      },
+      {
+        "text": "I will bury the world in ice.",
+        "author": "Lissandra"
+      },
+      {
+        "text": "No prey. No pay.",
+        "author": "Miss Fortune"
+      },
+      {
+        "text": "Always trust your spirit.",
+        "author": "Karma"
+      }
+  ]
+}
+
+
