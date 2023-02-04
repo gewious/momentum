@@ -24,6 +24,11 @@
   font-display: swap;
 }
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
 body {
   min-width: 480px;
@@ -31,27 +36,12 @@ body {
   font-size: 16px;
   color: #fff;
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2);
   background-blend-mode: multiply;
   font-family: 'Vollkorn SC';
+  background-size: cover;
+  background-position: center;
 }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    min-width: 480px;
-    min-height: 100vh;
-    font-size: 16px;
-    color: #fff;
-    text-align: center;
-    background: url("../assets/img/bg.jpg") center/cover, rgba(0, 0, 0, 0.5);
-    background-blend-mode: multiply;
-    transition: background-image 1s ease-in-out;
-  }
   
   .header {
     display: flex;
@@ -217,12 +207,10 @@ body {
   
   .slide-prev {
     left: 20px;
-    background-image: url("../assets/svg/slider-prev.svg");
   }
   
   .slide-next {
     right: 20px;
-    background-image: url("../assets/svg/slider-next.svg");
   }
   
   .time {
@@ -285,7 +273,6 @@ body {
   
   .change-quote {
     margin-bottom: 30px;
-    background-image: url("../assets/svg/reload.svg");  
   }
   
   .quote {
