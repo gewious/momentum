@@ -102,6 +102,7 @@ function getSlideNext() {
     }
 }
     setBg()
+    getQuotes()
 }
 
 
@@ -113,6 +114,7 @@ function getSlidePrev() {
     }
 }
     setBg()
+    getQuotes()
 }
 
 
@@ -137,7 +139,7 @@ const weatherError = document.querySelector('.weather-error');
 async function getWeather() {
     if (city.value === '') {
         city.value = 'Minsk'
-    } 
+    }
     
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=642c6906cb87f8bbd6fb881d3801b5ac&units=metric`;
     const res = await fetch(url);
@@ -155,3 +157,58 @@ getWeather();
 
 city.addEventListener('change', getWeather)
 
+
+
+// Quotes
+
+const quoteElement = document.querySelector('.quote')
+const authorElement = document.querySelector('.author')
+
+async function getQuotes() {
+    const quotes = 'dataEn.json';
+    const res = await fetch(quotes);
+    const data = await res.json()
+    console.log(imgNum)
+    console.log(timeOfDay)
+
+    // if (imgNum === 1 && timeOfDay === 'afternoon') {
+    //     quoteElement.textContent = data.afternoon[0].text
+    //     authorElement.textContent = data.afternoon[0].author
+    // }
+    
+    // else if (imgNum === 2 && timeOfDay === 'afternoon') {
+    //     quoteElement.textContent = data.afternoon[1].text
+    //     authorElement.textContent = data.afternoon[1].author
+    // }
+
+    // else if (imgNum === 3 && timeOfDay === 'afternoon') {
+    //     quoteElement.textContent = data.afternoon[2].text
+    //     authorElement.textContent = data.afternoon[2].author
+    // }
+
+    // else if (imgNum === 4 && timeOfDay === 'afternoon') {
+    //     quoteElement.textContent = data.afternoon[3].text
+    //     authorElement.textContent = data.afternoon[3].author
+    // }
+
+    // else if (imgNum === 5 && timeOfDay === 'afternoon') {
+    //     quoteElement.textContent = data.afternoon[4].text
+    //     authorElement.textContent = data.afternoon[4].author
+    // }
+
+    // else if (imgNum === 6 && timeOfDay === 'afternoon') {
+    //     quoteElement.textContent = data.afternoon[5].text
+    //     authorElement.textContent = data.afternoon[5].author
+    // }
+
+    for (let i = 0; i < 6; i++) {
+        if (imgNum && timeOfDay === 'afternoon') {
+            if (imgNum == i + 1 && imgNum <= 6) {
+            quoteElement.textContent = data.afternoon[i].text
+            authorElement.textContent = data.afternoon[i].author
+        }
+    }   
+    }
+ }
+
+getQuotes()
