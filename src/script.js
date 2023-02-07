@@ -1,3 +1,5 @@
+import playList from './playList.js';
+
 //Clock and calendar
 
 const time = document.querySelector('.time');
@@ -55,15 +57,15 @@ const name = document.querySelector('.name');
 
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
-    localStorage.setItem('city', city.value);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
     if(localStorage.getItem('name')) {
-        name.value = localStorage.getItem('name')
+        name.value = localStorage.getItem('name')  
 }
 }
+
 window.addEventListener('load', getLocalStorage);
 
 
@@ -137,10 +139,14 @@ const weatherError = document.querySelector('.weather-error');
 
 
 async function getWeather() {
-    if (city.value === '') {
+    try {
+    if (localStorage.getItem('city')) {
+        city.value = localStorage.getItem('city')
+    } else {
         city.value = 'Minsk'
     }
-    
+    localStorage.setItem('city', city.value);
+
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=642c6906cb87f8bbd6fb881d3801b5ac&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
@@ -151,64 +157,178 @@ async function getWeather() {
     weatherDescription.textContent = data.weather[0].description;
     humidity.textContent = `Humidity: ${data.main.humidity}%`
     wind.textContent = `Wind speed: ${Math.round(data.wind.speed)}m/s`
-
+} catch (error) {
+    console.error(error);
 }
+}
+
 getWeather();
 
-city.addEventListener('change', getWeather)
-
+city.addEventListener('change', function() {
+    localStorage.setItem('city', city.value)
+    getWeather()
+})
 
 
 // Quotes
 
 const quoteElement = document.querySelector('.quote')
 const authorElement = document.querySelector('.author')
+const changeQuote = document.querySelector('.change-quote')
 
 async function getQuotes() {
-    const quotes = 'dataEn.json';
+    const quotes = './src/dataEn.json';
     const res = await fetch(quotes);
     const data = await res.json()
-    console.log(imgNum)
-    console.log(timeOfDay)
+    let random = Math.floor(Math.random() * (6 - 1) + 1)
 
-    // if (imgNum === 1 && timeOfDay === 'afternoon') {
-    //     quoteElement.textContent = data.afternoon[0].text
-    //     authorElement.textContent = data.afternoon[0].author
-    // }
-    
-    // else if (imgNum === 2 && timeOfDay === 'afternoon') {
-    //     quoteElement.textContent = data.afternoon[1].text
-    //     authorElement.textContent = data.afternoon[1].author
-    // }
+    quoteElement.textContent = data[timeOfDay][random].text
+    authorElement.textContent = data[timeOfDay][random].author
 
-    // else if (imgNum === 3 && timeOfDay === 'afternoon') {
-    //     quoteElement.textContent = data.afternoon[2].text
-    //     authorElement.textContent = data.afternoon[2].author
-    // }
+    changeQuote.addEventListener('click', function() {
 
-    // else if (imgNum === 4 && timeOfDay === 'afternoon') {
-    //     quoteElement.textContent = data.afternoon[3].text
-    //     authorElement.textContent = data.afternoon[3].author
-    // }
-
-    // else if (imgNum === 5 && timeOfDay === 'afternoon') {
-    //     quoteElement.textContent = data.afternoon[4].text
-    //     authorElement.textContent = data.afternoon[4].author
-    // }
-
-    // else if (imgNum === 6 && timeOfDay === 'afternoon') {
-    //     quoteElement.textContent = data.afternoon[5].text
-    //     authorElement.textContent = data.afternoon[5].author
-    // }
-
-    for (let i = 0; i < 6; i++) {
-        if (imgNum && timeOfDay === 'afternoon') {
-            if (imgNum == i + 1 && imgNum <= 6) {
-            quoteElement.textContent = data.afternoon[i].text
-            authorElement.textContent = data.afternoon[i].author
+        if (timeOfDay === 'morning') {
+        quoteElement.textContent = data.morning[random].text
+        authorElement.textContent = data.morning[random].author
         }
-    }   
-    }
+    })
+
+    changeQuote.addEventListener('click', function() {
+
+        let random = Math.floor(Math.random() * (6 - 1) + 1)
+        if (timeOfDay === 'afternoon') {
+        quoteElement.textContent = data.afternoon[random].text
+        authorElement.textContent = data.afternoon[random].author
+        }
+    })
+
+    changeQuote.addEventListener('click', function() {
+
+        let random = Math.floor(Math.random() * (6 - 1) + 1)
+        if (timeOfDay === 'evening') {
+        quoteElement.textContent = data.evening[random].text
+        authorElement.textContent = data.evening[random].author
+        }
+    })
+
+    changeQuote.addEventListener('click', function() {
+
+        let random = Math.floor(Math.random() * (6 - 1) + 1)
+        if (timeOfDay === 'night') {
+        quoteElement.textContent = data.night[random].text
+        authorElement.textContent = data.night[random].author
+        }
+    })
+
+    // This is quotes for certain characters
+
+    // for (let i = 0; i < 6; i++) {
+    //     if (imgNum && timeOfDay === 'morning') {
+    //         if (imgNum == i + 1 && imgNum <= 6) {
+    //         quoteElement.textContent = data.morning[i].text
+    //         authorElement.textContent = data.morning[i].author
+    //     }
+    // }   
+    // }
+
+    // for (let i = 0; i < 6; i++) {
+    //     if (imgNum && timeOfDay === 'afternoon') {
+    //         if (imgNum == i + 1 && imgNum <= 6) {
+    //         quoteElement.textContent = data.afternoon[i].text
+    //         authorElement.textContent = data.afternoon[i].author
+    //     }
+    // }   
+    // }
+
+    // for (let i = 0; i < 6; i++) {
+    //     if (imgNum && timeOfDay === 'evening') {
+    //         if (imgNum == i + 1 && imgNum <= 6) {
+    //         quoteElement.textContent = data.evening[i].text
+    //         authorElement.textContent = data.evening[i].author
+    //     }
+    // }   
+    // }
+
+    // for (let i = 0; i < 6; i++) {
+    //     if (imgNum && timeOfDay === 'night') {
+    //         if (imgNum == i + 1 && imgNum <= 6) {
+    //         quoteElement.textContent = data.night[i].text
+    //         authorElement.textContent = data.night[i].author
+    //     }
+    // }   
+    // }
  }
 
 getQuotes()
+
+
+// Audio
+
+    playList.forEach((playListItem) => {
+    const li = document.createElement('li');
+    const playListContainer = document.querySelector('.play-list')
+    playListContainer.append(li)
+    li.classList.add('play-item')
+    li.textContent = playListItem.title
+})
+
+    const playBtn = document.querySelector('.play')
+    const audio = new Audio;
+    let isPlay = false;
+
+    function updateTrack() {
+        audio.src = playList[playNum].src
+        audio.currentTime = 0;
+    }
+    
+    function playAudio() {
+
+    playBtn.addEventListener('click', function() {
+        updateTrack()
+    if(!isPlay) {
+        audio.play();
+        isPlay = true;
+        playBtn.classList.remove('play');
+        playBtn.classList.add('pause');
+    } else {
+        audio.pause();
+        isPlay = false;
+        playBtn.classList.remove('pause');
+        playBtn.classList.add('play');
+    }
+    })
+    }
+
+
+  let playNum = 0;
+  const nextBtn = document.querySelector('.play-next');
+  const prevBtn = document.querySelector('.play-prev');
+
+
+    nextBtn.addEventListener('click', function() {
+       
+        if(playNum + 1 <= playList.length) {
+            playNum++;
+            updateTrack();
+            audio.play();
+            console.log(playNum)
+        }
+    })
+
+
+    prevBtn.addEventListener('click', function() {
+  
+        if(playNum - 1 >= 0) {
+            playNum--;
+            updateTrack();
+            audio.play();
+            console.log(playNum)
+        } else {
+            playNum = playList.length - 1;
+            updateTrack();
+            audio.play();
+        }
+    })
+
+  playAudio();
+  

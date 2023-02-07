@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="./src/assets/img/favicon.ico">
+  <link rel="stylesheet" href="./src/css/owfont-regular.css">
+  <link rel="stylesheet" type="text/css" href="./src/css/style.css">
+  <title>Momentum</title>
+</head>
+<body>
+  <header class="header">
+    <div class="player">
+      <div class="player-controls">
+        <button class="play-prev player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/rewind-button-round--v2.png"/></button>
+        <button class="play player-icon"></button>
+        <button class="play-next player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/fast-forward-round--v2.png"/></button>
+      </div>
+      <ul class="play-list"></ul>
+    </div>
+    <div class="weather">
+      <input type="text" class="city" />
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"><img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-left.png"/></button>
+      <button class="slide-next slider-icon"><img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-right.png"/></button>
+    </div>
+    <time class="time"></time>
+    <date class="date"></date>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" placeholder="[Enter name]" class="name"/>
+    </div>
+  </main>
+  <footer class="footer">
+    <button class="change-quote"><img src="https://img.icons8.com/ios-filled/35/FFFFFF/recurring-appointment.png"/></button>
+    <div>
+      <div class="quote"></div>
+      <div class="author"></div>
+    </div>
+  </footer>
+  <script type="module" src="./src/script.js"></script>
+  <script src="./src/playList.js"></script>
+</body>
+</html>
