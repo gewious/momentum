@@ -264,6 +264,16 @@ getQuotes()
 
 // Audio
 
+    let currentTrack = document.querySelector('.track-name');
+    let progressBar = document.querySelector('.progress-bar');
+    let volume = document.querySelector('.volume');
+    let currentDuration = document.querySelector('.current-duration');
+    let totalDuration = document.querySelector('.total-duration');
+    const playBtn = document.querySelector('.play')
+    const audio = new Audio;
+    let isPlay = false;
+
+
     playList.forEach((playListItem) => {
     const li = document.createElement('li');
     const playListContainer = document.querySelector('.play-list')
@@ -272,14 +282,13 @@ getQuotes()
     li.textContent = playListItem.title
 })
 
-    const playBtn = document.querySelector('.play')
-    const audio = new Audio;
-    let isPlay = false;
-
     function updateTrack() {
         audio.src = playList[playNum].src
+        currentTrack.textContent = playList[playNum].title
         audio.currentTime = 0;
+        totalDuration.textContent = playList[playNum].duration
     }
+
     
     function playAudio() {
 
@@ -307,12 +316,22 @@ getQuotes()
 
     nextBtn.addEventListener('click', function() {
        
-        if(playNum + 1 <= playList.length) {
+        if(playNum + 1 < playList.length) {
             playNum++;
             updateTrack();
-            audio.play();
             console.log(playNum)
+        } else {
+            playNum = 0;
+            updateTrack();
         }
+
+        if(playBtn.classList.contains('pause')) {
+            audio.play()
+        } else {
+            audio.pause()
+        }
+
+        clearInterval(intervalId)
     })
 
 
@@ -328,7 +347,42 @@ getQuotes()
             updateTrack();
             audio.play();
         }
+
+        if(playBtn.classList.contains('pause')) {
+            audio.play()
+        } else {
+            audio.pause()
+        }
+        
+        clearInterval(intervalId)
     })
 
   playAudio();
+
+
+
+  let intervalId
   
+  function updateCurrentDuration() {
+    let minutes = Math.floor(audio.currentTime / 60);
+    let seconds = Math.floor(audio.currentTime % 60)
+    currentDuration.textContent = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10? "0"+ seconds: seconds}`
+  }
+
+  audio.addEventListener('play', function() {
+    clearInterval(intervalId)
+    intervalId = setInterval(updateCurrentDuration, 1000);
+  })
+
+  audio.addEventListener('pause', function() {
+    clearInterval(intervalId)
+  })
+
+  audio.addEventListener('ended', function() {
+    clearInterval(intervalId)
+  })
+
+  volume.addEventListener('input', function() {
+    audio.volume = volume.value / 100;
+  })
+

@@ -16,7 +16,19 @@
         <button class="play player-icon"></button>
         <button class="play-next player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/fast-forward-round--v2.png"/></button>
       </div>
-      <ul class="play-list"></ul>
+        <div class="track-name">Enemy</div>
+        <div class="progress-bar-container">
+          <div class="current-duration">00:00</div>
+          <input type="range" min="0" max="100" value="0" class="progress-bar">
+          <div class="total-duration">02:53</div>
+        </div>
+          <div class="volume-container">
+            <div class="no-volume-icon"><img src="https://img.icons8.com/ios-filled/15/FFFFFF/sound-speaker.png"/></div>
+            <input type="range" min="0" max="100" value="99" class="volume">
+            <div class="volume-icon"><img src="https://img.icons8.com/material-sharp/17/FFFFFF/speaker.png"/></div>
+          </div>
+      <ul class="play-list">
+      </ul>
     </div>
     <div class="weather">
       <input type="text" class="city" />
@@ -43,7 +55,7 @@
     </div>
   </main>
   <footer class="footer">
-    <button class="change-quote"><img src="https://img.icons8.com/ios-filled/35/FFFFFF/recurring-appointment.png"/></button>
+    <button class="change-quote"><img src="https://img.icons8.com/ios-filled/30/FFFFFF/recurring-appointment.png"/></button>
     <div>
       <div class="quote"></div>
       <div class="author"></div>
