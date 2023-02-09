@@ -52,23 +52,53 @@ body {
     min-height: 220px;  
     padding: 20px;
   }
+
+  .track-name {
+    font-size: 18px;
+  }
   
   .player-controls {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 120px;
-    margin-bottom: 28px;
+    margin-bottom: 15px;
+    margin-left: 50px;
+  }
+
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .volume-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .no-volume-icon {
+    padding-right: 3px;
+    padding-top: 4px;
+  }
+
+  .volume-icon {
+    padding-left: 4px;
+    padding-top: 4px;
   }
   
   .play-list {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
   }
   
   .play-item {
     position: relative;
-    padding: 5px;
-    padding-left: 20px;
+    padding: 6px;
+    padding-left: 25px;
     list-style: none;
     opacity: .8;
     cursor: pointer;
@@ -80,11 +110,58 @@ body {
   }
   
   .play-item::before {
-    content: "\2713";  
+    content: "\23F5";
     position: absolute;
-    left: 0;
-    top: 2px;
+    left: 0px;
+    top: 2.5px;
     font-weight: 900;
+  }
+
+  .progress-bar {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 5px;
+    border-radius: 1px;
+    width: 100%;
+    background-color: rgb(215, 191, 231);
+  }
+
+  .volume {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 30%;
+    height: 4px;
+    background-color: rgb(215, 191, 231);
+    border-radius: 1px;
+  }
+
+  .volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #FFFFFF;
+    width: 11px;
+    height: 11px;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+
+  .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #FFFFFF;
+    width: 13px;
+    height: 13px;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  .current-duration, 
+  .total-duration {
+    padding: 5px;
   }
   
   .item-active::before {
@@ -267,7 +344,7 @@ body {
   }
   
   .change-quote {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
   
   .quote {
