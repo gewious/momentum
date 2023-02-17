@@ -1,9 +1,4 @@
-const playList = [
-    {      
-      title: 'Enemy',
-      src: './src/assets/sounds/Enemy.mp3',
-      duration: '02:53'
-    },  
+const playList = [ 
     {      
       title: 'Awaken',
       src: './src/assets/sounds/Awaken.mp3',
