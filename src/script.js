@@ -28,6 +28,11 @@ function showDate() {
 
 const greet = document.querySelector('.greeting')
 
+const greetingTranslation = {
+   en: ['Good night', 'Good morning', 'Good afternoon', 'Good evening'],
+   ru: ['Доброй ночи', 'Доброе утро', 'Добрый день', 'Добрый вечер']
+  }
+
 const date = new Date()
 const hours = date.getHours()
 
@@ -58,6 +63,7 @@ const name = document.querySelector('.name');
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
 }
+
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
@@ -145,7 +151,6 @@ async function getWeather() {
     } else {
         city.value = 'Minsk'
     }
-    localStorage.setItem('city', city.value);
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=642c6906cb87f8bbd6fb881d3801b5ac&units=metric`;
     const res = await fetch(url);
@@ -157,8 +162,13 @@ async function getWeather() {
     weatherDescription.textContent = data.weather[0].description;
     humidity.textContent = `Humidity: ${data.main.humidity}%`
     wind.textContent = `Wind speed: ${Math.round(data.wind.speed)}m/s`
+    weatherError.textContent = null;
 } catch (error) {
-    console.error(error);
+    weatherError.textContent = 'There is no such city'
+    temperature.textContent = null;
+    weatherDescription.textContent = null;
+    humidity.textContent = null;
+    wind.textContent = null;
 }
 }
 
@@ -180,7 +190,7 @@ async function getQuotes() {
     const quotes = './src/dataEn.json';
     const res = await fetch(quotes);
     const data = await res.json()
-    let random = Math.floor(Math.random() * (6 - 1) + 1)
+    let random = Math.floor(Math.random() * (6 - 0) + 0)
 
     quoteElement.textContent = data[timeOfDay][random].text
     authorElement.textContent = data[timeOfDay][random].author
@@ -195,7 +205,7 @@ async function getQuotes() {
 
     changeQuote.addEventListener('click', function() {
 
-        let random = Math.floor(Math.random() * (6 - 1) + 1)
+        let random = Math.floor(Math.random() * (6 - 0) + 0)
         if (timeOfDay === 'afternoon') {
         quoteElement.textContent = data.afternoon[random].text
         authorElement.textContent = data.afternoon[random].author
@@ -204,7 +214,7 @@ async function getQuotes() {
 
     changeQuote.addEventListener('click', function() {
 
-        let random = Math.floor(Math.random() * (6 - 1) + 1)
+        let random = Math.floor(Math.random() * (6 - 0) + 0)
         if (timeOfDay === 'evening') {
         quoteElement.textContent = data.evening[random].text
         authorElement.textContent = data.evening[random].author
@@ -213,7 +223,7 @@ async function getQuotes() {
 
     changeQuote.addEventListener('click', function() {
 
-        let random = Math.floor(Math.random() * (6 - 1) + 1)
+        let random = Math.floor(Math.random() * (6 - 0) + 0)
         if (timeOfDay === 'night') {
         quoteElement.textContent = data.night[random].text
         authorElement.textContent = data.night[random].author
@@ -330,8 +340,9 @@ getQuotes()
         } else {
             audio.pause()
         }
-
+        audio.currentTime = 0
         clearInterval(intervalId)
+        clearInterval(progressIntervalId)
     })
 
 
@@ -353,36 +364,63 @@ getQuotes()
         } else {
             audio.pause()
         }
-        
+        audio.currentTime = 0
         clearInterval(intervalId)
+        clearInterval(progressIntervalId)
     })
 
   playAudio();
 
 
+let animationFrameId
+let progressIntervalId
 
-  let intervalId
-  
-  function updateCurrentDuration() {
-    let minutes = Math.floor(audio.currentTime / 60);
-    let seconds = Math.floor(audio.currentTime % 60)
-    currentDuration.textContent = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10? "0"+ seconds: seconds}`
+function updateCurrentDuration() {
+  let minutes = Math.floor(audio.currentTime / 60);
+  let seconds = Math.floor(audio.currentTime % 60);
+  currentDuration.textContent = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10? "0"+ seconds: seconds}`
+}
+
+function updateTime() {
+  updateCurrentDuration();
+  animationFrameId = requestAnimationFrame(updateTime);
+}
+
+function updateProgressBar() {
+    progressBar.value = (audio.currentTime / audio.duration) * 100;
+}
+
+audio.addEventListener('play', function() {
+  clearInterval(progressIntervalId)
+  animationFrameId = requestAnimationFrame(updateTime);
+  progressIntervalId = setInterval(updateProgressBar, 50);
+})
+
+audio.addEventListener('pause', function() {
+  cancelAnimationFrame(animationFrameId);
+})
+
+audio.addEventListener('ended', function() {
+  cancelAnimationFrame(animationFrameId);
+  clearInterval(progressIntervalId)
+})
+
+volume.addEventListener('input', function() {
+  audio.volume = volume.value / 100;
+})
+
+
+//Settings
+
+const settings = document.querySelector('.settings');
+const settingsList = document.querySelector('.settings-list')
+
+settings.addEventListener('click', function() {
+  if(settingsList.classList.contains('settings-height')) {
+    settingsList.classList.remove('settings-height')
+    settingsList.classList.add('language_opacity')
+  } else {
+    settingsList.classList.add('settings-height')
+    settingsList.classList.remove('language_opacity')
   }
-
-  audio.addEventListener('play', function() {
-    clearInterval(intervalId)
-    intervalId = setInterval(updateCurrentDuration, 1000);
-  })
-
-  audio.addEventListener('pause', function() {
-    clearInterval(intervalId)
-  })
-
-  audio.addEventListener('ended', function() {
-    clearInterval(intervalId)
-  })
-
-  volume.addEventListener('input', function() {
-    audio.volume = volume.value / 100;
-  })
-
+})

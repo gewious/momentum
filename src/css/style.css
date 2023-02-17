@@ -41,6 +41,7 @@ body {
   font-family: 'Vollkorn SC';
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 }
   
   .header {
@@ -48,7 +49,7 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    height: 30vh;
+    height: 32vh;
     min-height: 220px;  
     padding: 20px;
   }
@@ -92,7 +93,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 15px;
   }
   
   .play-item {
@@ -121,7 +122,7 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    height: 5px;
+    height: 4px;
     border-radius: 1px;
     width: 100%;
     background-color: rgb(215, 191, 231);
@@ -142,9 +143,8 @@ body {
     -moz-appearance: none;
     appearance: none;
     background-color: #FFFFFF;
-    width: 11px;
-    height: 11px;
-    border: 2px solid black;
+    width: 10px;
+    height: 10px;
     border-radius: 5px;
   }
 
@@ -153,9 +153,8 @@ body {
     -moz-appearance: none;
     appearance: none;
     background-color: #FFFFFF;
-    width: 13px;
-    height: 13px;
-    border: 2px solid black;
+    width: 10px;
+    height: 10px;
     border-radius: 6px;
   }
 
@@ -334,13 +333,89 @@ body {
   
   .footer {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
     height: 30vh;
     min-height: 160px;  
     padding: 20px;
+  }
+
+  .settings {
+    cursor: pointer;
+    opacity: .8;
+    transition: 0.5s;
+    position: relative;
+    z-index: 5;
+  }
+
+  .settings:hover {
+    opacity: 1;
+  }
+
+  .settings-list {
+    position: absolute;
+    width: 190px;
+    background-color: black;
+    opacity: .8;
+    transition: 1s;
+    height: 0;
+  }
+
+  .settings-height {
+    height: 295px;
+  }
+
+  .language_opacity {
+    opacity: 0;
+  }
+
+  .language_wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+    cursor: pointer;
+    opacity: 1;
+  }
+
+  .language {
+    font-weight: 600;
+    color: rgb(215, 191, 231);
+  }
+
+  .source {
+    font-weight: 600;
+    color: rgb(215, 191, 231);
+  }
+
+  .blocks_title {
+    font-weight: 600;
+    color: rgb(215, 191, 231);
+  }
+
+  .photo-source {
+    display: flex;
+    margin: 15px;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .blocks_wrapper {
+    margin: 15px;
+    justify-content: space-between;
+    cursor: pointer;
+    flex-wrap: wrap;
+    line-height: 25px;
+  }
+
+  .todo-list {
+    font-size: 20px;
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  .todo-list:hover {
+    opacity: 1;
   }
   
   .change-quote {
