@@ -23,6 +23,22 @@
     {
       "text": "Losing is just an opportunity to shine even brighter.",
       "author": "Lux"
+    },
+    {
+      "text": "You're scared, good to know.",
+      "author": "Akali"
+    },
+    {
+      "text": "You know what's hard about fighting? Nothing! Come on, I'm made of stone.",
+      "author": "Galio"
+    },
+    {
+      "text": "I decide what the tide will bring.",
+      "author": "Nami"
+    },
+    {
+      "text": "Punch first. Ask questions while punching.",
+      "author": "Vi"
     }
   ],  
 
@@ -48,8 +64,24 @@
         "author": "Nunu & Willump"
       },
       {
-        "text": "So many noobs, will matchmaking ever find true balance?",
-        "author": "Akali"
+        "text": "Fortune doesn't favor fools.",
+        "author": "Miss Fortune"
+      },
+      {
+        "text": "Let's get in the fight!",
+        "author": "Rumble"
+      },
+      {
+        "text": "I got no time for games.",
+        "author": "Graves"
+      },
+      {
+        "text": "You know you want me.",
+        "author": "Evelynn"
+      },
+      {
+        "text": "I can never resist an invitation to dance.",
+        "author": "Xayah"
       }
   ],
 
@@ -78,6 +110,22 @@
       {
         "text": "It's alright if you don't like me. We can't all have good taste.",
         "author": "Samira"
+      },
+      {
+        "text": "The tempest is at your command.",
+        "author": "Janna"
+      },
+      {
+        "text": "It's just business.",
+        "author": "Sivir"
+      },
+      {
+        "text": "I thought you'd never pick me.",
+        "author": "Amumu"
+      },
+      {
+        "text": "I am bound, but I will not break.",
+        "author": "Morgana"
       }
   ],
 
@@ -105,6 +153,22 @@
       {
         "text": "Always trust your spirit.",
         "author": "Karma"
+      },
+      {
+        "text": "No more cages!",
+        "author": "Sylas"
+      },
+      {
+        "text": "Let me guide you.",
+        "author": "Soraka"
+      },
+      {
+        "text": "Kay. See if I care.",
+        "author": "Vex"
+      },
+      {
+        "text": "They fear me. They should.",
+        "author": "Warwick"
       }
   ]
 }
