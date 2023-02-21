@@ -83,7 +83,7 @@ body.style.backgroundImage = "url('https://raw.githubusercontent.com/gewious/mom
 let imgNum 
 
 function getRandomNum() {
-    imgNum = Math.floor(Math.random() * (7-1)) + 1
+    imgNum = Math.floor(Math.random() * (11-1)) + 1
 }
 
 
@@ -99,13 +99,12 @@ function setBg() {
     }
     }
 
-setBg()
 
 
 function getSlideNext() {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 11; i++) {
         imgNum++
-    if (imgNum == 6) {
+    if (imgNum == 10) {
         imgNum = 1
     }
 }
@@ -115,10 +114,10 @@ function getSlideNext() {
 
 
 function getSlidePrev() {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 11; i++) {
         imgNum--
     if (imgNum == 1) {
-        imgNum = 6
+        imgNum = 10
     }
 }
     setBg()
@@ -128,9 +127,6 @@ function getSlidePrev() {
 
 const slidePrev = document.querySelector('.slide-prev.slider-icon');
 const slideNext = document.querySelector('.slide-next.slider-icon');
-
-slidePrev.addEventListener('click', getSlidePrev);
-slideNext.addEventListener('click', getSlideNext);
 
 
 //Weather
@@ -190,7 +186,7 @@ async function getQuotes() {
     const quotes = './src/dataEn.json';
     const res = await fetch(quotes);
     const data = await res.json()
-    let random = Math.floor(Math.random() * (6 - 0) + 0)
+    let random = Math.floor(Math.random() * (10 - 0) + 0)
 
     quoteElement.textContent = data[timeOfDay][random].text
     authorElement.textContent = data[timeOfDay][random].author
@@ -198,6 +194,7 @@ async function getQuotes() {
     changeQuote.addEventListener('click', function() {
 
         if (timeOfDay === 'morning') {
+        let random = Math.floor(Math.random() * (10 - 0) + 0)
         quoteElement.textContent = data.morning[random].text
         authorElement.textContent = data.morning[random].author
         }
@@ -205,8 +202,8 @@ async function getQuotes() {
 
     changeQuote.addEventListener('click', function() {
 
-        let random = Math.floor(Math.random() * (6 - 0) + 0)
         if (timeOfDay === 'afternoon') {
+        let random = Math.floor(Math.random() * (10 - 0) + 0)
         quoteElement.textContent = data.afternoon[random].text
         authorElement.textContent = data.afternoon[random].author
         }
@@ -214,8 +211,9 @@ async function getQuotes() {
 
     changeQuote.addEventListener('click', function() {
 
-        let random = Math.floor(Math.random() * (6 - 0) + 0)
+        
         if (timeOfDay === 'evening') {
+        let random = Math.floor(Math.random() * (10 - 0) + 0)
         quoteElement.textContent = data.evening[random].text
         authorElement.textContent = data.evening[random].author
         }
@@ -223,10 +221,12 @@ async function getQuotes() {
 
     changeQuote.addEventListener('click', function() {
 
-        let random = Math.floor(Math.random() * (6 - 0) + 0)
+        
         if (timeOfDay === 'night') {
+        let random = Math.floor(Math.random() * (10 - 0) + 0)
         quoteElement.textContent = data.night[random].text
         authorElement.textContent = data.night[random].author
+        console.log(random)
         }
     })
 
@@ -276,141 +276,298 @@ getQuotes()
 
     let currentTrack = document.querySelector('.track-name');
     let progressBar = document.querySelector('.progress-bar');
-    let volume = document.querySelector('.volume');
+    let volumeInput = document.querySelector('.volume');
     let currentDuration = document.querySelector('.current-duration');
     let totalDuration = document.querySelector('.total-duration');
-    const playBtn = document.querySelector('.play')
+    const playBtn = document.querySelector('.play');
+    const playPrev = document.querySelector('.play-prev')
+    const playNext = document.querySelector('.play-next')
     const audio = new Audio;
     let isPlay = false;
 
-
     playList.forEach((playListItem) => {
-    const li = document.createElement('li');
-    const playListContainer = document.querySelector('.play-list')
-    playListContainer.append(li)
-    li.classList.add('play-item')
+    const li = document.createElement('li')
+    const ul = document.querySelector('.play-list')
+    ul.append(li)
     li.textContent = playListItem.title
-})
+    li.classList.add('play-item')
+    })
+
+    let songsTitles = document.querySelectorAll('.play-item')
+    let prevSong = null;
+
+
+    songsTitles.forEach((song, index) => {
+        song.addEventListener('click', function() {
+            playNum = index;
+            playAudio();
+            if (prevSong !== null  && prevSong !== song) {
+                prevSong.classList.remove('item-active');
+            }
+            if (song.classList.contains('item-active')) {
+                song.classList.remove('item-active');
+            } else {
+                song.classList.add('item-active');
+            }
+            prevSong = song;
+        })
+    })
+
+    audio.addEventListener('pause', function() {
+          song.classList.remove('item-active');
+      });
+    
+    let playNum = 0;
 
     function updateTrack() {
-        audio.src = playList[playNum].src
-        currentTrack.textContent = playList[playNum].title
+        audio.src = playList[playNum].src;
+        currentTrack.textContent = playList[playNum].title;
         audio.currentTime = 0;
-        totalDuration.textContent = playList[playNum].duration
+        totalDuration.textContent = playList[playNum].duration;
+        progressBar.value = 0;
     }
 
-    
     function playAudio() {
+        updateTrack()
+        if (!isPlay) {
+            audio.play();
+            playBtn.classList.remove('play');
+            playBtn.classList.add('pause');
+            isPlay = true;
+        } else {
+            audio.pause()
+            playBtn.classList.remove('pause')
+            playBtn.classList.add('play')
+            isPlay = false;
+        }
+        updateTime()
+    } 
+
+    playBtn.addEventListener('click', playAudio);
 
     playBtn.addEventListener('click', function() {
-        updateTrack()
-    if(!isPlay) {
-        audio.play();
-        isPlay = true;
-        playBtn.classList.remove('play');
-        playBtn.classList.add('pause');
-    } else {
-        audio.pause();
-        isPlay = false;
-        playBtn.classList.remove('pause');
-        playBtn.classList.add('play');
-    }
+        if(audio.paused) {
+            songsTitles.forEach((song) => {
+                song.classList.remove('item-active')
+            }) 
+        }
     })
+
+    audio.addEventListener('pause', function() {
+        if (prevSong !== null) {
+            prevSong.classList.remove('item-active');
+        }
+    });
+
+
+    function playPrevAudio() {
+        if(playNum - 1 >= 0) {
+            playNum--
+            updateTrack()
+        } else {
+            playNum = 2
+            updateTrack()
+        } 
+        if (playBtn.classList.contains('pause')) {
+            audio.play()
+        } else {
+            audio.pause()
+        }
+        console.log(playNum)
     }
 
-
-  let playNum = 0;
-  const nextBtn = document.querySelector('.play-next');
-  const prevBtn = document.querySelector('.play-prev');
-
-
-    nextBtn.addEventListener('click', function() {
-       
-        if(playNum + 1 < playList.length) {
+    function playNextAudio() {
+        if (playNum + 1 < playList.length) {
             playNum++;
-            updateTrack();
-            console.log(playNum)
+            updateTrack()
         } else {
             playNum = 0;
-            updateTrack();
+            updateTrack()
         }
-
-        if(playBtn.classList.contains('pause')) {
+        if (playBtn.classList.contains('pause')) {
             audio.play()
         } else {
             audio.pause()
         }
-        audio.currentTime = 0
-        clearInterval(intervalId)
-        clearInterval(progressIntervalId)
+        console.log(playNum)
+    }
+
+    playNext.addEventListener('click', playNextAudio)
+    playPrev.addEventListener('click', playPrevAudio)
+
+    
+    volumeInput.addEventListener('input', function() {
+        audio.volume = volumeInput.value / 100
+    })
+    
+    function updateCurrentDuration() {
+        let minutes = Math.floor(audio.currentTime / 60);
+        let seconds = Math.floor(audio.currentTime % 60);
+        currentDuration.textContent = `${minutes < 10? '0' + minutes: minutes}:${seconds < 10? '0'+seconds: seconds}`;
+    }
+
+    let animationFrameId
+
+    function updateTime() {
+        updateCurrentDuration();
+        animationFrameId = requestAnimationFrame(updateTime)
+    }
+
+
+    progressBar.addEventListener('change', function() {
+        let pct = progressBar.value / 100;
+        audio.currentTime = (audio.duration || 0) * pct;
     })
 
 
-    prevBtn.addEventListener('click', function() {
+    audio.addEventListener('ended', function() {
+        audio.currentTime = 0;
+        if (playNum + 1 < playList.length) {
+            playNum++;
+            updateTrack()
+        } else {
+            playNum = 0;
+            updateTrack()
+        }
+        if (playBtn.classList.contains('pause')) {
+            audio.play()
+        } else {
+            audio.pause()
+        }
+    })
+
+
+    document.querySelectorAll('.play-item').forEach((li) => {
+        li.addEventListener('click', function() {
+            for (let i = 0; i < playList.length; i++) {
+                
+            }
+        })
+    })
+
+    document.querySelector('.no-volume-icon').addEventListener('click', function() {
+        volumeInput.value = 0;
+        audio.volume = 0;
+    })
+
+    document.querySelector('.volume-icon').addEventListener('click', function() {
+        volumeInput.value = 100;
+        audio.volume = 1;
+    })
+
+
+
+
+    //API images
+
+    //Unsplash API
+
+    let apiWords = document.querySelector('.api-input')
+
+    
+    apiWords.addEventListener('change', function() {
+        if(apiWords.value === '') {
+            url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${getTimeOfDay()}&client_id=Chnu35uN-HASy55TRmOR1oHV0gpfYfbSnSjVTb7-RLI`
+            getUnsplashImages()
+        } else {
+            url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${apiWords.value}&client_id=Chnu35uN-HASy55TRmOR1oHV0gpfYfbSnSjVTb7-RLI`
+            getUnsplashImages()
+        }
+    })
+
+    async function getUnsplashImages() {
+        let url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${getTimeOfDay()}&client_id=Chnu35uN-HASy55TRmOR1oHV0gpfYfbSnSjVTb7-RLI`
+        const res = await fetch(url);
+        const data = await res.json();
+        const imgUrl = data.urls.regular
+    
+        const img = new Image()
+        img.src = imgUrl
+        img.onload = () => {
+        body.style.backgroundImage = `url(${imgUrl})`
+        body.style.transition = 'all ease 1s'
+        }
+    }
+
+
+
+    //Flickr API
+
+    let index = 0;
+    let imgUrls = [];
+    let flickrUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=f7f699c19eae630eeb94c55a83147095&tags=${getTimeOfDay()}&extras=url_l&format=json&nojsoncallback=1`;
+
+    apiWords.addEventListener('change', function() {
+        if(apiWords.value === '') {
+            flickrUrl =  `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=f7f699c19eae630eeb94c55a83147095&tags=${getTimeOfDay()}&extras=url_l&format=json&nojsoncallback=1`;
+            getFlickrImage()
+        } else {
+            flickrUrl =  `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=f7f699c19eae630eeb94c55a83147095&tags=${apiWords.value}&extras=url_l&format=json&nojsoncallback=1`;
+            getFlickrImage()
+        }
+    })
+
+    async function getFlickrImage() {
+    
+        const res = await fetch(flickrUrl);
+        const data = await res.json();
+        const imgUrl = data.photos.photo[index].url_l
+        imgUrls.push(imgUrl)
+        const img = new Image();
+        img.src = imgUrl;
+
+        img.onload = () => {
+
+        body.style.backgroundImage = `url(${imgUrl})`;
+        body.style.transition = 'all ease 1s';
+        index = (index + 1);
+        }
+    }
+
+
+    slideNext.addEventListener('click', function() {
+    const selectedValue = select.value;
   
-        if(playNum - 1 >= 0) {
-            playNum--;
-            updateTrack();
-            audio.play();
-            console.log(playNum)
-        } else {
-            playNum = playList.length - 1;
-            updateTrack();
-            audio.play();
-        }
-
-        if(playBtn.classList.contains('pause')) {
-            audio.play()
-        } else {
-            audio.pause()
-        }
-        audio.currentTime = 0
-        clearInterval(intervalId)
-        clearInterval(progressIntervalId)
+    if (selectedValue === 'github') {
+        setBg();
+    } else if (selectedValue === 'unsplash-api') {
+        getUnsplashImages();
+    } else if (selectedValue === 'flickr-api') {
+        getFlickrImage();
+    }
     })
 
-  playAudio();
+    
+    slidePrev.addEventListener('click', function() {
+    const selectedValue = select.value;
+  
+    if (selectedValue === 'github') {
+        setBg();
+    } else if (selectedValue === 'unsplash-api') {
+        getUnsplashImages();
+    } else if (selectedValue === 'flickr-api') {
+        getFlickrImage();
+    }
+    })
+
+    const select = document.getElementById('select');
 
 
-let animationFrameId
-let progressIntervalId
-
-function updateCurrentDuration() {
-  let minutes = Math.floor(audio.currentTime / 60);
-  let seconds = Math.floor(audio.currentTime % 60);
-  currentDuration.textContent = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10? "0"+ seconds: seconds}`
-}
-
-function updateTime() {
-  updateCurrentDuration();
-  animationFrameId = requestAnimationFrame(updateTime);
-}
-
-function updateProgressBar() {
-    progressBar.value = (audio.currentTime / audio.duration) * 100;
-}
-
-audio.addEventListener('play', function() {
-  clearInterval(progressIntervalId)
-  animationFrameId = requestAnimationFrame(updateTime);
-  progressIntervalId = setInterval(updateProgressBar, 50);
-})
-
-audio.addEventListener('pause', function() {
-  cancelAnimationFrame(animationFrameId);
-})
-
-audio.addEventListener('ended', function() {
-  cancelAnimationFrame(animationFrameId);
-  clearInterval(progressIntervalId)
-})
-
-volume.addEventListener('input', function() {
-  audio.volume = volume.value / 100;
-})
+    select.addEventListener('change', function() {
+    const selectedValue = this.value;
+  
+    if (selectedValue === 'github') {
+        setBg();
+    } else if (selectedValue === 'unsplash-api') {
+        getUnsplashImages();
+    } else if (selectedValue === 'flickr-api') {
+        getFlickrImage();
+    }
+    });
 
 
-//Settings
+
+    //Settings
 
 const settings = document.querySelector('.settings');
 const settingsList = document.querySelector('.settings-list')
@@ -424,3 +581,5 @@ settings.addEventListener('click', function() {
     settingsList.classList.remove('language_opacity')
   }
 })
+
+
