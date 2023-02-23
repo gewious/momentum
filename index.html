@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="./src/assets/img/favicon.ico">
   <link rel="stylesheet" href="./src/css/owfont-regular.css">
   <link rel="stylesheet" type="text/css" href="./src/css/style.css">
@@ -12,9 +12,9 @@
   <header class="header">
     <div class="player">
       <div class="player-controls">
-        <button class="play-prev player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/rewind-button-round--v2.png"/></button>
+        <button class="play-prev player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/rewind-button-round--v2.png" alt="rewind-button"></button>
         <button class="play player-icon"></button>
-        <button class="play-next player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/fast-forward-round--v2.png"/></button>
+        <button class="play-next player-icon"><img src="https://img.icons8.com/ios/32/FFFFFF/fast-forward-round--v2.png" alt="fast-forward"></button>
       </div>
         <div class="track-name">Awaken</div>
         <div class="progress-bar-container">
@@ -23,15 +23,15 @@
           <div class="total-duration">02:53</div>
         </div>
           <div class="volume-container">
-            <div class="no-volume-icon"><img src="https://img.icons8.com/ios-filled/15/FFFFFF/sound-speaker.png"/></div>
+            <div class="no-volume-icon"><img src="https://img.icons8.com/ios-filled/15/FFFFFF/sound-speaker.png" alt="sound-apeaker"></div>
             <input type="range" min="0" max="100" value="99" class="volume">
-            <div class="volume-icon"><img src="https://img.icons8.com/material-sharp/17/FFFFFF/speaker.png"/></div>
+            <div class="volume-icon"><img src="https://img.icons8.com/material-sharp/17/FFFFFF/speaker.png" alt="speaker"></div>
           </div>
       <ul class="play-list">
       </ul>
     </div>
     <div class="weather">
-      <input type="text" class="city" />
+      <input type="text" class="city">
       <i class="weather-icon owf"></i>
       <div class="weather-error"></div>
       <div class="description-container">
@@ -44,14 +44,14 @@
   </header>
   <main class="main">
     <div class="slider-icons">
-      <button class="slide-prev slider-icon"><img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-left.png"/></button>
-      <button class="slide-next slider-icon"><img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-right.png"/></button>
+      <button class="slide-prev slider-icon"><img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-left.png" alt="chevron-left"></button>
+      <button class="slide-next slider-icon"><img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-right.png" alt="chevron-right"></button>
     </div>
-    <time class="time"></time>
-    <date class="date"></date>
+    <div class="time"></div>
+    <div class="date"></div>
     <div class="greeting-container">
       <span class="greeting"></span>
-      <input type="text" placeholder="[Enter name]" class="name"/>
+      <input type="text" placeholder="[Enter name]" class="name" name="enter-name">
     </div>
   </main>
   <footer class="footer">
@@ -65,56 +65,56 @@
 
     <div class="blocks_wrapper">
       <div class="block">
-        <div class="title">Greeting</div>
-        <label class="checkbox-ios">
+        <div class="title settingGreeting">Greeting</div>
+        <label class="checkbox-ios one">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
       </div>
 
       <div class="block">
-        <div class="title">Time</div>
-        <label class="checkbox-ios">
+        <div class="title settingTime">Time</div>
+        <label class="checkbox-ios two">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
       </div>
 
       <div class="block">
-        <div class="title">Date</div>
-        <label class="checkbox-ios">
+        <div class="title settingDate">Date</div>
+        <label class="checkbox-ios three">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
       </div>
 
       <div class="block">
-        <div class="title">Quote</div>
-        <label class="checkbox-ios">
+        <div class="title settingQuote">Quote</div>
+        <label class="checkbox-ios four">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
       </div>
 
       <div class="block">
-        <div class="title">Weather</div>
-        <label class="checkbox-ios">
+        <div class="title settingWeather">Weather</div>
+        <label class="checkbox-ios five">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
       </div>
 
       <div class="block">
-        <div class="title">Audio</div>
-        <label class="checkbox-ios">
+        <div class="title settingAudio">Audio</div>
+        <label class="checkbox-ios six">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
       </div>
 
       <div class="block">
-        <div class="title">Todo</div>
-        <label class="checkbox-ios">
+        <div class="title settingTodo">ToDo</div>
+        <label class="checkbox-ios seven">
           <input type="checkbox">
           <span class="checkbox-ios-switch"></span>
         </label>
@@ -136,10 +136,10 @@
 
     </div>
     <div class="settings">
-      <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/35/FFFFFF/external-settings-donation-and-charity-icongeek26-outline-icongeek26.png"/>
+      <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/35/FFFFFF/external-settings-donation-and-charity-icongeek26-outline-icongeek26.png" alt="settings">
     </div>
     <div class="quote_wrapper">
-      <button class="change-quote"><img src="https://img.icons8.com/ios-filled/25/FFFFFF/recurring-appointment.png"/></button>
+      <button class="change-quote"><img src="https://img.icons8.com/ios-filled/25/FFFFFF/recurring-appointment.png" alt="recurring"></button>
     <div>
       <div class="quote"></div>
       <div class="author"></div>
