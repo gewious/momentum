@@ -144,7 +144,7 @@ humidity = document.querySelector('.humidity');
 async function getWeather() {
     let url = '';
     if (city.value !== '') {
-        url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=642c6906cb87f8bbd6fb881d3801b5ac&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${currentLanguage === 'en'? 'en' : 'ru'}&appid=642c6906cb87f8bbd6fb881d3801b5ac&units=metric`;
     }
     try {
     if (localStorage.getItem('city')) {
