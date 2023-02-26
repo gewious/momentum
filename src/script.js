@@ -4,8 +4,8 @@ import playList from './playList.js';
 
 
 let currentLanguage = 'en';
-const time = document.querySelector('.time');
-const dateEl = document.querySelector('.date');
+const time = document.querySelector('.time'),
+      dateEl = document.querySelector('.date');
 
 
 function showTime() {
@@ -33,11 +33,10 @@ function showDate() {
 
 //Greeting
 
-const greet = document.querySelector('.greeting');
+const greet = document.querySelector('.greeting'),
 
-
-const date = new Date();
-const hours = date.getHours();
+    date = new Date(),
+    hours = date.getHours();
 
 
 function getTimeOfDay() {
@@ -56,9 +55,9 @@ function getTimeOfDay() {
     }
 }
 
-const timeOfDay = getTimeOfDay();
-const greetingText = `Good ${timeOfDay}`;
-greet.textContent = greetingText;
+const timeOfDay = getTimeOfDay(),
+    greetingText = `Good ${timeOfDay}`;
+    greet.textContent = greetingText;
 
 
 const name = document.querySelector('.name');
@@ -81,17 +80,19 @@ window.addEventListener('load', getLocalStorage);
 //Slider
 
 const body = document.querySelector('body');
-body.style.backgroundImage = "url('https://raw.githubusercontent.com/gewious/momentum/assets/afternoon/03.jpg')";
-
 let imgNum;
 
 function getRandomNum() {
     imgNum = Math.floor(Math.random() * (11-1)) + 1;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    getRandomNum();
+    setBg();
+  });
+
 
 function setBg() {
-    getRandomNum();
     const bgNum = imgNum.toString().padStart(2, '0');
     body.style.transition = 'all ease 1s';
 
@@ -100,51 +101,51 @@ function setBg() {
     img.onload = () => {  
     body.style.backgroundImage = `url('${img.src}')`;
     }
-    }
-
+}
 
 
 function getSlideNext() {
-    for (let i = 0; i < 11; i++) {
-        imgNum++;
-    if (imgNum == 10) {
-        imgNum = 1;
-    }
-}
+    imgNum = (imgNum % 10) + 1;
     setBg();
-    getQuotes();
-}
-
-
-function getSlidePrev() {
-    for (let i = 0; i < 11; i++) {
-        imgNum--;
-    if (imgNum == 1) {
-        imgNum = 10;
+    if (currentLanguage === 'en') {
+        getQuotesEn();
+    } else {
+        getQuotesRu();
     }
-}
+  }
+  
+  function getSlidePrev() {
+    imgNum = ((imgNum - 2 + 10) % 10) + 1;
     setBg();
-    getQuotes();
-}
+    if (currentLanguage === 'en') {
+        getQuotesEn();
+    } else {
+        getQuotesRu();
+    }
+  }
 
 
-const slidePrev = document.querySelector('.slide-prev.slider-icon');
-const slideNext = document.querySelector('.slide-next.slider-icon');
+const slidePrev = document.querySelector('.slide-prev.slider-icon'),
+      slideNext = document.querySelector('.slide-next.slider-icon');
 
 
 //Weather
 
-const city = document.querySelector('.city');
-const weatherIcon = document.querySelector('.weather-icon');
-const temperature = document.querySelector('.temperature');
-const weatherDescription = document.querySelector('.weather-description');
-let wind = document.querySelector('.wind');
-let humidity = document.querySelector('.humidity');
-const weatherError = document.querySelector('.weather-error');
+const city = document.querySelector('.city'),
+weatherIcon = document.querySelector('.weather-icon'),
+temperature = document.querySelector('.temperature'),
+weatherDescription = document.querySelector('.weather-description'),
+weatherError = document.querySelector('.weather-error');
+
+let wind = document.querySelector('.wind'),
+humidity = document.querySelector('.humidity');
 
 
 async function getWeather() {
     let url = '';
+    if (city.value !== '') {
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=642c6906cb87f8bbd6fb881d3801b5ac&units=metric`;
+    }
     try {
     if (localStorage.getItem('city')) {
         city.value = localStorage.getItem('city')
@@ -159,6 +160,7 @@ async function getWeather() {
     const res = await fetch(url);
     const data = await res.json();
 
+
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${Math.floor(data.main.temp)}°C`;
@@ -166,8 +168,8 @@ async function getWeather() {
     humidity.textContent = `${currentLanguage === 'en'? 'Humidity' : 'Влажность'} ${data.main.humidity}%`;
     wind.textContent = `${currentLanguage === 'en'? 'Wind speed' : 'Скорость ветра'} ${Math.round(data.wind.speed)}m/s`;
     weatherError.textContent = null;
+
 } catch (error) {
-    console.log(error);
     weatherError.textContent = 'There is no such city';
     temperature.textContent = null;
     weatherDescription.textContent = null;
@@ -180,17 +182,26 @@ async function getWeather() {
 getWeather();
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    if (!localStorage.getItem('city')) {
+        localStorage.setItem('city', 'Minsk');
+    } else {
+        localStorage.getItem('city', city.value)
+        getWeather()
+    }
+});
+
 city.addEventListener('change', function() {
     localStorage.setItem('city', city.value);
-    getWeather()
+    getWeather();
 })
 
 
 // Quotes
 
-const quoteElement = document.querySelector('.quote');
-const authorElement = document.querySelector('.author');
-const changeQuote = document.querySelector('.change-quote');
+const quoteElement = document.querySelector('.quote'),
+authorElement = document.querySelector('.author'),
+changeQuote = document.querySelector('.change-quote');
 
 async function getQuotesEn() {
     const quotes = './src/dataEn.json';
@@ -340,15 +351,15 @@ async function getQuotesEn() {
 
 // Audio
 
-    let currentTrack = document.querySelector('.track-name');
-    let progressBar = document.querySelector('.progress-bar');
-    let volumeInput = document.querySelector('.volume');
-    let currentDuration = document.querySelector('.current-duration');
-    let totalDuration = document.querySelector('.total-duration');
-    const playBtn = document.querySelector('.play');
-    const playPrev = document.querySelector('.play-prev');
-    const playNext = document.querySelector('.play-next');
-    const audio = new Audio;
+let currentTrack = document.querySelector('.track-name'),
+    progressBar = document.querySelector('.progress-bar'),
+    volumeInput = document.querySelector('.volume'),
+    currentDuration = document.querySelector('.current-duration'),
+    totalDuration = document.querySelector('.total-duration');
+const playBtn = document.querySelector('.play'),
+    playPrev = document.querySelector('.play-prev'),
+    playNext = document.querySelector('.play-next'),
+    audio = new Audio;
     let isPlay = false;
 
     playList.forEach((playListItem) => {
@@ -363,11 +374,11 @@ async function getQuotesEn() {
     let prevSong = null;
 
 
-    songsTitles.forEach((song, index) => {
+    songsTitles.forEach((song) => {
         song.addEventListener('click', function() {
-            playNum = index;
+  
             playAudio();
-            if (prevSong !== null  && prevSong !== song) {
+            if (song !== null) {
                 prevSong.classList.remove('item-active');
             }
             if (song.classList.contains('item-active')) {
@@ -379,11 +390,9 @@ async function getQuotesEn() {
         })
     })
 
-    audio.addEventListener('pause', function() {
-          song.classList.remove('item-active');
-      });
     
     let playNum = 0;
+    let animationFrameId;
 
     function updateTrack() {
         audio.src = playList[playNum].src;
@@ -392,6 +401,18 @@ async function getQuotesEn() {
         totalDuration.textContent = playList[playNum].duration;
         progressBar.value = 0;
     }
+
+    function updateCurrentDuration() {
+        let minutes = Math.floor(audio.currentTime / 60);
+        let seconds = Math.floor(audio.currentTime % 60);
+        currentDuration.textContent = `${minutes < 10? '0' + minutes: minutes}:${seconds < 10? '0'+seconds: seconds}`;
+    }
+
+    function updateTime() {
+        updateCurrentDuration();
+        animationFrameId = requestAnimationFrame(updateTime);
+    }
+
 
     function playAudio() {
         updateTrack();
@@ -405,6 +426,15 @@ async function getQuotesEn() {
             playBtn.classList.remove('pause');
             playBtn.classList.add('play');
             isPlay = false;
+        }
+        if (songsTitles[playNum] !== prevSong) {
+            if (prevSong !== null) {
+                prevSong.classList.remove('item-active');
+            }
+            songsTitles[playNum].classList.add('item-active');
+            prevSong = songsTitles[playNum];
+        } else {
+            songsTitles[playNum].classList.toggle('item-active');
         }
         updateTime();
     } 
@@ -423,6 +453,7 @@ async function getQuotesEn() {
         if (prevSong !== null) {
             prevSong.classList.remove('item-active');
         }
+        songsTitles[playNum].classList.remove('item-active');
     });
 
 
@@ -439,7 +470,15 @@ async function getQuotesEn() {
         } else {
             audio.pause();
         }
-        console.log(playNum)
+        if (songsTitles[playNum] !== prevSong) {
+            if (prevSong !== null) {
+                prevSong.classList.remove('item-active');
+            }
+            songsTitles[playNum].classList.add('item-active');
+            prevSong = songsTitles[playNum];
+        } else {
+            songsTitles[playNum].classList.toggle('item-active');
+        }
     }
 
     function playNextAudio() {
@@ -455,7 +494,16 @@ async function getQuotesEn() {
         } else {
             audio.pause();
         }
-        console.log(playNum);
+      
+        if (songsTitles[playNum] !== prevSong) {
+            if (prevSong !== null) {
+                prevSong.classList.remove('item-active');
+            }
+            songsTitles[playNum].classList.add('item-active');
+            prevSong = songsTitles[playNum];
+        } else {
+            songsTitles[playNum].classList.toggle('item-active');
+        }
     }
 
     playNext.addEventListener('click', playNextAudio);
@@ -465,24 +513,22 @@ async function getQuotesEn() {
     volumeInput.addEventListener('input', function() {
         audio.volume = volumeInput.value / 100;
     })
-    
-    function updateCurrentDuration() {
-        let minutes = Math.floor(audio.currentTime / 60);
-        let seconds = Math.floor(audio.currentTime % 60);
-        currentDuration.textContent = `${minutes < 10? '0' + minutes: minutes}:${seconds < 10? '0'+seconds: seconds}`;
-    }
-
-    let animationFrameId
-
-    function updateTime() {
-        updateCurrentDuration();
-        animationFrameId = requestAnimationFrame(updateTime);
-    }
 
 
     progressBar.addEventListener('change', function() {
         let pct = progressBar.value / 100;
         audio.currentTime = (audio.duration || 0) * pct;
+    })
+
+    
+    document.querySelector('.no-volume-icon').addEventListener('click', function() {
+        volumeInput.value = 0;
+        audio.volume = 0;
+    })
+
+    document.querySelector('.volume-icon').addEventListener('click', function() {
+        volumeInput.value = 100;
+        audio.volume = 1;
     })
 
 
@@ -501,27 +547,6 @@ async function getQuotesEn() {
             audio.pause();
         }
     })
-
-
-    document.querySelectorAll('.play-item').forEach((li) => {
-        li.addEventListener('click', function() {
-            for (let i = 0; i < playList.length; i++) {
-                
-            }
-        })
-    })
-
-    document.querySelector('.no-volume-icon').addEventListener('click', function() {
-        volumeInput.value = 0;
-        audio.volume = 0;
-    })
-
-    document.querySelector('.volume-icon').addEventListener('click', function() {
-        volumeInput.value = 100;
-        audio.volume = 1;
-    })
-
-
 
 
     //API images
@@ -595,7 +620,7 @@ async function getQuotesEn() {
     const selectedValue = select.value;
   
     if (selectedValue === 'github') {
-        setBg();
+        getSlideNext();
     } else if (selectedValue === 'unsplash-api') {
         getUnsplashImages();
     } else if (selectedValue === 'flickr-api') {
@@ -608,7 +633,7 @@ async function getQuotesEn() {
     const selectedValue = select.value;
   
     if (selectedValue === 'github') {
-        setBg();
+        getSlidePrev();
     } else if (selectedValue === 'unsplash-api') {
         getUnsplashImages();
     } else if (selectedValue === 'flickr-api') {
@@ -638,6 +663,7 @@ async function getQuotesEn() {
     const englishBtn = document.querySelector('.english');
     const russianBtn= document.querySelector('.russian');
     const language = document.querySelector('.language');
+    englishBtn.classList.add('clicked');
 
 
     englishBtn.addEventListener('click', function() {
@@ -713,55 +739,162 @@ async function getQuotesEn() {
 
 
 
-
-
-
-
-
     //Settings
 
 const settings = document.querySelector('.settings');
 const settingsList = document.querySelector('.settings-list');
 
 settings.addEventListener('click', function() {
-  if(settingsList.classList.contains('settings-height')) {
-    settingsList.classList.remove('settings-height');
+  if(settingsList.classList.contains('settings-show')) {
+    settingsList.classList.remove('settings-show');
     settingsList.classList.add('language_opacity');
   } else {
-    settingsList.classList.add('settings-height');
+    settingsList.classList.add('settings-show');
     settingsList.classList.remove('language_opacity');
   }
+});
+
+
+document.querySelector('.checkbox-ios.one').addEventListener('change', function() {
+    if (document.querySelector('.greeting-container').classList.contains('hide')) {
+        document.querySelector('.greeting-container').classList.remove('hide');
+      } else {
+        document.querySelector('.greeting-container').classList.add('hide');
+        document.querySelector('.greeting-container').style.transition = '1s'
+      }
+    });
+
+document.querySelector('.checkbox-ios.two').addEventListener('change', function() {
+    if (time.classList.contains('hide')) {
+        time.classList.remove('hide');
+      } else {
+        time.classList.add('hide');
+        time.style.transition = '1s'
+      }
+    });
+
+
+
+document.querySelector('.checkbox-ios.three').addEventListener('change', function() {
+    if (dateEl.classList.contains('hide')) {
+        dateEl.classList.remove('hide');
+      } else {
+        dateEl.classList.add('hide');
+        dateEl.style.transition = '1s'
+      }
+    });
+
+
+document.querySelector('.checkbox-ios.four').addEventListener('change', function() {
+    if (document.querySelector('.quote_wrapper').classList.contains('hide')) {
+        document.querySelector('.quote_wrapper').classList.remove('hide');
+      } else {
+        document.querySelector('.quote_wrapper').classList.add('hide');
+        document.querySelector('.quote_wrapper').style.transition = '1s'
+      }
+});
+
+document.querySelector('.checkbox-ios.five').addEventListener('change', function() {
+    if (document.querySelector('.weather').classList.contains('hide')) {
+        document.querySelector('.weather').classList.remove('hide');
+      } else {
+        document.querySelector('.weather').classList.add('hide');
+        document.querySelector('.weather').style.transition = '1s'
+      }
+});
+
+document.querySelector('.checkbox-ios.six').addEventListener('change', function() {
+    if (document.querySelector('.player').classList.contains('hide')) {
+        document.querySelector('.player').classList.remove('hide');
+      } else {
+        document.querySelector('.player').classList.add('hide');
+        document.querySelector('.player').style.transition = '1s'
+      }
+});
+
+document.querySelector('.checkbox-ios.seven').addEventListener('change', function() {
+    if (document.querySelector('.todo-list-button').classList.contains('hide')) {
+        document.querySelector('.todo-list-button').classList.remove('hide');
+        document.querySelector('.todo-block-wrapper').classList.remove('hide');
+      } else {
+        document.querySelector('.todo-list-button').classList.add('hide');
+        document.querySelector('.todo-block-wrapper').classList.add('hide');
+        document.querySelector('.todo-list-button').style.transition = '1s'
+      }
+});
+
+
+
+
+//ToDo List
+
+document.querySelector('.todo-list-button').addEventListener('click', function() {
+    if (document.querySelector('.todo-block-wrapper').classList.contains('todo-show')) {
+     document.querySelector('.todo-block-wrapper').classList.remove('todo-show')
+    } else {
+     document.querySelector('.todo-block-wrapper').classList.add('todo-show')
+    }
+ })
+
+
+let todoInput = document.querySelector('#todo-input'),
+    todoButton = document.querySelector('.add'),
+    todo = document.querySelector('.todo')
+
+let todoList = []
+
+if (localStorage.getItem('todo')) {
+    todoList = JSON.parse(localStorage.getItem('todo'));
+    displayMessages();
+}
+
+todoButton.addEventListener('click', function() {
+    let newTodo = {
+        todo: todoInput.value,
+        checked: false,
+        important: false
+    };
+    todoList.push(newTodo);
+    displayMessages();
+    localStorage.setItem('todo', JSON.stringify(todoList));
+    todoInput.value = '';
 })
 
 
-document.querySelector('.checkbox-ios.one').addEventListener('click', function() {
-    // if (document.querySelector('.greeting-container').classList.contains('hide')) {
-    //     document.querySelector('.greeting-container').classList.remove('hide')
-    // } else {
-        document.querySelector('.greeting-container').classList.add('hide')
-    // }
-})
+function displayMessages() {
+    let displayMessage = '';
+    todoList.forEach((item, i) => {
+        displayMessage += `
+            <li class="todo-li">
+                <div>
+                    <input type="checkbox" id="item_${i}" ${item.checked ? 'checked' : ''}>
+                    <label for="item_${i}">${item.todo}</label>
+                </div>
+                <img src="https://img.icons8.com/material-outlined/24/FFFFFF/cancel--v1.png" alt="Todo Image" class="todo-img" data-index="${i}">
+            </li>
+        `;
+    });
+    todo.innerHTML = displayMessage;
+};
 
-document.querySelector('.checkbox-ios.two').addEventListener('click', function() {
-    time.classList.add('hide');
-})
 
-document.querySelector('.checkbox-ios.three').addEventListener('click', function() {
-    dateEl.classList.add('hide');
-})
+todo.addEventListener('change', function(event) {
+    let idInput = event.target.getAttribute('id');
+    let forLabel = todo.querySelector('[for=' + idInput + ']');
+    let valueLabel = forLabel.innerHTML;
+    todoList.forEach((item) => {
+        if (item.todo === valueLabel) {
+            item.checked = !item.checked;
+            localStorage.setItem('todo', JSON.stringify(todoList));
+        };
+    });
+});
 
-document.querySelector('.checkbox-ios.four').addEventListener('click', function() {
-    document.querySelector('.quote_wrapper').classList.add('hide')
-})
-
-document.querySelector('.checkbox-ios.five').addEventListener('click', function() {
-    document.querySelector('.weather').classList.add('hide')
-})
-
-document.querySelector('.checkbox-ios.six').addEventListener('click', function() {
-    document.querySelector('.player').classList.add('hide');
-})
-
-document.querySelector('.checkbox-ios.seven').addEventListener('click', function() {
-    document.querySelector('.todo-list').classList.add('hide');
-})
+todo.addEventListener('click', function(event) {
+    if (event.target.classList.contains('todo-img')) {
+        const index = event.target.getAttribute('data-index');
+        todoList.splice(index, 1);
+        displayMessages();
+        localStorage.setItem('todo', JSON.stringify(todoList));
+    }
+});

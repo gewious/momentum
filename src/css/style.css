@@ -31,8 +31,8 @@
   }
 
 body {
-  min-width: 480px;
   min-height: 100vh;
+  height: 100vh;
   font-size: 16px;
   color: #fff;
   text-align: center;
@@ -42,6 +42,13 @@ body {
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  position: relative;
+}
+
+html {
+  overflow: hidden;
+  min-height: 100vh;
+  height: 100vh;
 }
   
   .header {
@@ -52,6 +59,11 @@ body {
     height: 32vh;
     min-height: 220px;  
     padding: 20px;
+  }
+
+  li {
+    padding: 6px;
+    list-style-type: none;
   }
 
   .track-name {
@@ -81,11 +93,13 @@ body {
   .no-volume-icon {
     padding-right: 3px;
     padding-top: 4px;
+    cursor: pointer;
   }
 
   .volume-icon {
     padding-left: 4px;
     padding-top: 4px;
+    cursor: pointer;
   }
   
   .play-list {
@@ -364,10 +378,9 @@ body {
     background-color: black;
     opacity: .9;
     transition: 1s;
-    height: 0;
-  }
-
-  .settings-height {
+    left: -300px;
+    z-index: 5;
+    border-radius: 10px;
     height: 380px;
   }
 
@@ -397,14 +410,6 @@ body {
     width: 40px;
     height: 22px;
     cursor: pointer;
-  }
-
-  .clicked {
-    background-color: rgb(215, 191, 231);;
-    width: 40px;
-    height: 22px;
-    color: black;
-    transition: 0.5s;
   }
 
   .russian {
@@ -442,16 +447,6 @@ body {
 
   .title {
     font-size: 18px;
-  }
-
-  .todo-list {
-    font-size: 20px;
-    cursor: pointer;
-    opacity: .8;
-  }
-
-  .todo-list:hover {
-    opacity: 1;
   }
   
   .change-quote {
@@ -526,10 +521,110 @@ body {
     transform:translateX(28px);
   }
 
+  .todo-block-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    height: 380px;
+    background-color: black;
+    opacity: .9;
+    position: absolute;
+    right: -350px;
+    transition: 1s;
+    border-radius: 10px;
+  }
+
+  .todo-list-button {
+    font-size: 20px;
+    cursor: pointer;
+    opacity: .8;
+    z-index: 5;
+    position: relative;
+  }
+
+  
+  .todo-list-button:hover {
+    opacity: 1;
+  }
+
+  .add {
+    width: 196px;
+    height: 23px;
+    font-size: 15px;
+    margin-top: 10px;
+    background-color: rgb(215, 191, 231);
+    cursor: pointer;
+  }
+
+  .todo-title {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  #todo-input {
+    margin-top: 10px;
+    height: 23px;
+    font-size: 15px;
+  }
+
+  .todo-margin {
+    margin-top: 15px;
+  }
+
+  .todo {
+    margin-top: 12px;
+    text-align: start;
+    margin-left: 16px;
+    font-size: 18px;
+  }
+
+  /*Classes for js*/
+
+  .clicked {
+    background-color: rgb(215, 191, 231);;
+    width: 40px;
+    height: 22px;
+    color: black;
+    transition: 0.5s;
+  }
+
   .hide {
     opacity: 0;
     transition: 1s;
   }
+
+  .show {
+    opacity: 1;
+    transition: 1s;
+  }
+
+  .settings-show {
+    left: 20px;
+  }
+
+  .todo-show {
+    right: 20px;
+  }
+
+  .todo-icon {
+    background: url('https://img.icons8.com/material-outlined/24/FFFFFF/cancel--v1.png');
+    display: flex;
+  }
+
+  .todo-li {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .todo-img {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  label {
+    margin-left: 10px;
+  }
+
   
   @media (max-width: 768px) {
     .time {
@@ -550,4 +645,196 @@ body {
       font-size: 32px;
       padding: 5px;
     }
+
+    body {
+      background-position-x: center;
+    }
+  }
+
+
+  @media (max-width: 520px) {
+    .time {
+      min-height: 60px;
+      font-size: 55px;    
+    }
+  
+    .greeting-container {
+      min-height: 30px;
+      font-size: 28px;
+    }
+
+    .date {
+      font-size: 23px;
+      margin-bottom: 0;
+    }
+
+    .track-name {
+      font-size: 16px;
+    }
+
+    .progress-bar {
+      width: 50%;
+    }
+
+    .play-list {
+      margin-top: 0;
+    }
+
+    .player-controls {
+      margin-left: 30px;
+    }
+
+    .player {
+      max-width: 180px;
+    }
+
+    .weather {
+      align-items: flex-end;
+    }
+
+    .progress-bar-container {
+      max-height: 23px;
+    }
+
+    .volume-container {
+      max-height: 23px;
+    }
+
+    .city {
+      font-size: 16px;
+      width: 140px;
+    }
+
+    .quote {
+      font-size: 16px;
+    }
+
+    .author {
+      font-size: 14px;
+    }
+
+    .change-quote {
+      margin-bottom: 15px;
+    }
+
+    .main {
+      min-height: 170px;
+    }
+
+    .settings-list {
+      width: 170px;
+      height: 390px;
+    }
+
+    .title, .language {
+      font-size: 16px;
+    }
+
+    .english, .russian {
+      font-size: 16px;
+    }
+
+    .checkbox-ios .checkbox-ios-switch {
+      width: 40px;
+      height: 19px;
+    }
+
+    .checkbox-ios .checkbox-ios-switch:before {
+      width: 18px;
+      height: 18px;
+    }
+
+    .checkbox-ios input[type=checkbox]:checked + .checkbox-ios-switch:before {
+      transform: translateX(21px);
+    }
+
+    .blocks_wrapper {
+      margin: 10px;
+    }
+
+    .language_wrapper {
+      margin: 10px;
+    }
+
+    .todo-block-wrapper {
+      width: 170px;
+      height: 390px;
+    }
+
+    #todo-input {
+      max-width: 150px;
+    }
+
+    .add {
+      max-width: 150px;
+    }
+
+    .todo-title {
+      font-size: 16px;
+    }
+
+    .todo-li {
+      font-size: 16px;
+    }
+
+    .todo-img {
+      max-width: 20px;
+      max-height: 20px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .play {
+      width: 35px;
+      height: 35px;
+      background-size: 35px 35px;
+    }
+
+    .pause {
+      width: 35px;
+      height: 35px;
+      background-size: 35px 35px;
+    }
+
+    .player-controls {
+      width: 105px;
+      margin-left: 40px;
+    }
+
+    .progress-bar, .volume {
+      height: 3px;
+    }
+
+    .total-duration, .current-duration {
+      font-size: 14px;
+    }
+
+    .city {
+      max-width: 120px;
+    }
+
+    .weather {
+      font-size: 14px;
+    }
+
+   .play-item {
+    font-size: 14px;
+   }
+
+   .quote {
+    font-size: 14px;
+    line-height: 20px;
+   }
+
+   .author {
+    line-height: 20px;
+   }
+
+   .header, .main, .footer {
+    padding: 10px;
+   }
+
+   .footer {
+    height: 27vh;
+   }
   }
